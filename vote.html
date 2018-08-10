@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=0.1">
+	<title>get (490×490)</title>
+
+</head>
+<body style="margin: 0px; background: #0e0e0e;">
+	<img src="images/get.png" alt="" style="-webkit-user-select: none;cursor: zoom-in;">
+	<div id="login_container">
+		
+	</div>
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+	<script>
+		$(function(){
+			var obj = new WxLogin({
+				 self_redirect:true,
+				 id:"login_container", 
+				 appid: "", 
+				 scope: "", 
+				 redirect_uri: "",
+				  state: "",
+				 style: "",
+				 href: ""
+				 });
+			var url = "https://open.weixin.qq.com/connect/qrconnect?appid=wxab6ef39d2222b152&redirect_uri=http://www.panoon.com.cn&response_type=code&scope=snsapi_login&state=2014#wechat_redirect";
+			$.ajax({
+				type:"GET",
+				dataType:"JSONP",
+				url:url1,
+				success: function (data) {
+					console.log(data);
+				},
+				error: function (){
+					console.log("网络故障，请检查");
+				}
+			});
+		})
+	</script>
+</body>
+</html>

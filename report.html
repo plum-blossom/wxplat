@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>report</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+	<link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link href="css/index.css" rel="stylesheet">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="row-fluid">
+        <ul id="mytab" class="nav nav-tabs" style="margin-top: 10px;">
+            <li class="active"><a href="#chart" data-toggle="tab">统计图表</a></li>
+            <li><a href="#userinfo" data-toggle="tab">用户数据</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="chart">
+                <div class="span12">
+                    <h2>参与投票用户总数：1人</h2>
+                    <br />
+                    <h3></h3>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="span6">选项</th>
+                                <th>小计</th>
+                                <th class="span5">比例</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane" id="userinfo">
+                <div class="main-title">
+                    <h3>投票参与用户信息</h3>
+                </div>
+                <div id="testlist">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>用户名</th>
+                                <th>用户Openid：微信号独一无二的数字身份识别代码</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/report.js">
+       
+    </script>
+</body>
+</html>

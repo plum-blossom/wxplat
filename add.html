@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>添加”微投票“活动</title>
+<link rel="stylesheet" href="css/bootstrap.min.css" >
+<link href="css/index.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.0.custom.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-timepicker-addon.css">
+
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-ui-1.10.0.custom.min.js"></script>
+<script src="js/jquery-ui-timepicker-addon.js"></script>
+<script src="js/jquery-ui-timepicker-zh-CN.js"></script>
+<!-- 处理json -->
+<script src="js/jquery.json-2.4.min.js"></script>
+<!-- $().validate 表单验证-->
+<script src="js/operamasks-ui.min.js"></script> 
+</head>
+
+<body>
+    <div class="container">
+        <h3>添加”微投票“活动</h3>
+    </div>
+    <div class="container well">
+        <div class="row">
+            <!-- 左侧活动内容显示 -->
+            <div class="span3">
+                <div class="vcont">
+                    <!-- 活动标题 -->
+                    <div class="vtitle" data-bind-0="name">活动标题</div>
+                    <!-- 活动图片 -->
+                    <div class="vcover">
+                        <img id="defaultconver" src="images/d-01.jpg"  width="270" />
+                    </div>
+                    <!-- 活动描述 -->
+                    <div class="vsummary">
+                        每位参与投票的朋友都将获得我们送出的尊贵礼品，同时你还将参加抽奖，有机会获得iphone5等大奖。
+                    </div>
+                    <!-- 活动投票选项 check -->
+                    <div class="voption-cont">
+
+                    </div>
+                    <!-- 投票 btn -->
+                    <button class="btn btn-warning" style="width: 100%;">投票</button>
+                </div>
+            </div>
+            <!-- 右侧活动添加 -->
+            <div class="span7">
+                <form action="#" class="form" id="surveyform" method="post" enctype="multipart/form-data">
+                    <!-- 活动名称 -->
+                    <div class="control-group">
+                        <label class="control-label">活动名称</label><span class="maroon">*</span><span class="help-inline">（不能超过64个字）</span>
+                        <div class="controls">
+                            <input type="text" data-bind-0=name id="activityname" class="span5" name="activityname" maxlength="64" value="" required/>
+                        </div>
+                    </div>
+                    <!-- 活动封面 -->
+                    <div class="control-group">
+                        <label class="control-label">投票封面</label><span class="maroon">*</span><span class="help-inline">(必须上传一张图片)</span>
+                        <div class="controls">
+                            <div class="cover-area">
+                                <div class="cover-hd">
+                                    <!-- <input id="file_upload_cover1" name="file_upload" class="file_upload_imageurl" type="file" /> -->
+                                    <input id="file_upload_cover1" name="file_upload" class="file_upload_imageurl" type="file" required />
+                                    <input id="cover1" type="hidden" name="cover1" value="images/d-01.jpg">
+                                </div>
+                                <p id="upload-tip" class="upload-tip">大图片建议尺寸：640像素 * 500像素</p>
+                                <p class="img-area cover-bd">
+                                    <img class="thumb_img" src="images/d-01.jpg" id='cover1_img' width="120">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 活动选项 -->
+                    <div class="control-group option-group">
+                        <label class="control-label">选项</label><span class="maroon">*</span><span class="help-inline">（必填）</span>
+                        <div class="controls">
+                            <div class="option">
+                                <input type="text" name="option" required/>
+                                <a class="del-option">删除</a>
+                            </div>
+                            <div class="option" id="del_option">
+                                <input type="text" name="option" />
+                                <a class="del-option">删除</a>
+                            </div>
+                            <a href="javascript:;" class="btn btn-primary" id="add-option">增加选项</a>
+                        </div>
+                    </div>
+                    <!-- 活动最多选项 -->
+                    <div class="control-group">
+                        <label class="control-label" for="keyword">最多能选择几个选项</label><span class="maroon">*</span><span class="help-inline">（必填）</span>
+                        <div class="controls">
+                            <input type="text" value="" id="maxsel" name="maxsel" required>
+                        </div>
+                    </div>
+                    <!-- 活动关键词 -->
+                    <div class="control-group">
+                        <label class="control-label" for="keyword">活动回复关键词</label><span class="maroon">*</span><span class="help-inline">（活动的关键词不能重复，且不建议包含标点符号）</span>
+                        <div class="controls">
+                            <input type="text" value="我要投票" id="keyword" name="keyword" required>
+                        </div>
+                    </div>
+                    <!-- 活动说明 -->
+                    <div id="desc-block" class="control-group">
+                        <label class="control-label">活动说明</label>
+                        <span class="help-inline">(不能超过200个字)</span>
+                        <div class="controls">
+                            <textarea name="summary" rows="8" id="summary" class="span6" required></textarea>
+                        </div>
+                    </div>
+                    <!-- 活动起止时间 -->
+                    <div class="control-group">
+                        <label class="control-label">活动时间</label><span class="maroon">*</span><span class="help-inline">必填,请确保活动结束时间大于开始时间，活动持续时间不能超过7天！</span>
+                        <div class="controls">
+                            从<input id="startDate" name="startDate" type="text" value="" readonly>
+                            到
+                            <input id="endDate" name="endDate" type="text" value="" readonly>
+
+                        </div>
+                    </div>
+                    <!-- 保存 取消 -->
+                    <div class="control-group">
+                        <div class="controls">
+                            <button id="save-btn" type="button" class="btn btn-primary btn-large">保存</button>
+                            <a href="index.html" id="cancel-btn" type="button" class="btn btn-large">取消</a>
+                        </div>
+                    </div>
+                    <input id="states" name="states" type="hidden" value="" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/add.js"></script>
+</body>
+</html>
+

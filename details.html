@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>查看”微投票“活动</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link href="css/index.css" rel="stylesheet">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <h3>查看”微投票“活动</h3>
+    </div>
+    <div class="container well">
+        <div class="row">
+            <div class="span3">
+                <div class="vcont">
+                    
+                    <button class="btn btn-warning vote" style="width: 100%;">投票</button>
+                </div>
+            </div>
+            <div class="span7">
+                <form action="#" class="form" id="surveyform">
+                    
+                </form>
+                <div class="control-group">
+                        <div class="controls">
+                            <a href="index.html" id="cancel-btn" type="button" class="btn btn-large">取消</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $('#surveyform input').attr("disabled",true);
+            var url = window.location.href;
+            var id = url.split('=')[1];
+            // console.log(id);
+            // 加载后台数据
+            $.ajax({
+                type: "POST",
+                url: "data/sel.php",
+                data:{id:id},
+                success: function (data) {
+                    // console.log(data);
+                    var  newdata = JSON.parse(data);
+                    var html = "";
+                    $.each(newdata, function (k, v) {
+                        // 左边投票
+                        var left ="";
+                        left = `
+                            <div class="vtitle" data-bind-0="name">${v.activename}</div>
+                            <div class="vcover">
+                                <img id="defaultconver" src="${v.cover1}" width="270" height="300"/>
+                            </div>
+                            <div class="vsummary">
+                               ${v.summary}
+                            </div>
+                        `;
+                        $('.vote').before(left);
+                        
+                        var options = v.option.split(',');
+                        console.log(options);
+                        for(var i=0;i<options.length;i++){
+                            console.log(options[i])
+                            var op =`<div class="voption-cont"><label class="checkbox"><input type="checkbox" /><span>${options[i]}</span></label></div>`
+                            $('.vote').before(op);
+                        }
+                            html +=`
+                        <div class="control-group">
+                        <label class="control-label">活动名称</label><span class="maroon">*</span><span class="help-inline">（不能超过64个字）</span>
+                        <div class="controls">
+                            <input type="text" data-bind-0=name id="activityname" class="span5" name="activityname" maxlength="64" value="${v.activename}" disabled/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="keyword">最多能选择几个选项</label><span class="maroon">*</span><span class="help-inline">（必填）</span>
+                        <div class="controls">
+                            <input type="text" value="${v.maxsel}" id="maxsel" name="maxsel" disabled>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="keyword">活动回复关键词</label><span class="maroon">*</span><span class="help-inline">（活动的关键词不能重复，且不建议包含标点符号）</span>
+                        <div class="controls">
+                            <input type="text" value="${v.keyword}" id="keyword" name="keyword" disabled>
+                        </div>
+                    </div>
+                    <div id="desc-block" class="control-group">
+                        <label class="control-label">活动说明</label>
+                        <span class="help-inline">(不能超过200个字)</span>
+                        <div class="controls">
+                            <textarea name="summary" rows="8" id="summary" class="span6" disabled>${v.summary}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">活动时间</label><span class="maroon">*</span><span class="help-inline">必填,请确保活动结束时间大于开始时间，活动持续时间不能超过7天！</span>
+                        <div class="controls">
+                            从<input id="startDate" name="startDate" type="text" value="${v.startDate}" readonly>
+                            到
+                            <input id="endDate" name="endDate" type="text" value="${v.endDate}" readonly>
+
+                        </div>
+                    </div>
+                    
+                        `
+                    });
+                    $('#surveyform').html(html);
+                    
+                },
+                error: function () {
+                    console.log("网络出现故障，请检查您的网络!");
+                }
+            });
+        });
+    </script>   
+</body>
+</html>
